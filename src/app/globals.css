@@ -1,0 +1,127 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;0,600;1,400&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: 222 47% 7%;
+  --foreground: 210 40% 96%;
+  --card: 222 47% 10%;
+  --card-foreground: 210 40% 96%;
+  --border: 215 28% 17%;
+  --input: 215 28% 17%;
+  --ring: 201 96% 50%;
+  --primary: 201 96% 50%;
+  --primary-foreground: 222 47% 7%;
+  --accent: 171 81% 40%;
+  --accent-foreground: 210 40% 96%;
+
+  --font-ibm-plex-sans: 'IBM Plex Sans', system-ui, sans-serif;
+  --font-ibm-plex-mono: 'IBM Plex Mono', monospace;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: hsl(var(--background));
+  color: hsl(var(--foreground));
+  font-family: var(--font-ibm-plex-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* React Flow overrides */
+.react-flow__renderer {
+  border-radius: 12px;
+}
+.react-flow__background {
+  background-color: hsl(222 47% 8%) !important;
+}
+.react-flow__minimap {
+  background-color: hsl(222 47% 12%) !important;
+  border: 1px solid hsl(var(--border));
+  border-radius: 8px;
+  overflow: hidden;
+}
+.react-flow__minimap-mask {
+  fill: hsl(201 96% 50% / 0.15);
+}
+.react-flow__controls {
+  border: 1px solid hsl(var(--border)) !important;
+  background: hsl(var(--card)) !important;
+  border-radius: 8px !important;
+  overflow: hidden;
+}
+.react-flow__controls-button {
+  background: hsl(var(--card)) !important;
+  border-bottom: 1px solid hsl(var(--border)) !important;
+  color: hsl(var(--foreground)) !important;
+  fill: hsl(var(--foreground)) !important;
+}
+.react-flow__controls-button:hover {
+  background: hsl(var(--border)) !important;
+}
+.react-flow__edge-path {
+  stroke: hsl(201 96% 50% / 0.6);
+  stroke-width: 2;
+}
+.react-flow__edge.selected .react-flow__edge-path {
+  stroke: hsl(201 96% 50%);
+}
+.react-flow__edge-textbg {
+  fill: hsl(var(--card));
+}
+.react-flow__edge-text {
+  fill: hsl(var(--foreground));
+  font-size: 11px;
+  font-family: var(--font-ibm-plex-mono);
+}
+.react-flow__handle {
+  background: hsl(201 96% 50%) !important;
+  border-color: hsl(222 47% 7%) !important;
+  width: 10px !important;
+  height: 10px !important;
+}
+.react-flow__attribution {
+  display: none !important;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: hsl(var(--card)); }
+::-webkit-scrollbar-thumb { background: hsl(var(--border)); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: hsl(201 96% 50% / 0.4); }
+
+/* Node styles */
+.node-decision {
+  clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+}
+
+/* Exam hidden slot animation */
+@keyframes examPulse {
+  0%, 100% { border-color: hsl(201 96% 50% / 0.4); }
+  50% { border-color: hsl(201 96% 50% / 0.9); }
+}
+.exam-hidden-slot {
+  animation: examPulse 2s ease-in-out infinite;
+}
+
+/* Drop zone highlight */
+.drop-target-active {
+  border-color: hsl(171 81% 40%) !important;
+  background: hsl(171 81% 40% / 0.1) !important;
+  box-shadow: 0 0 0 2px hsl(171 81% 40% / 0.3);
+}
+
+/* Correct/Incorrect result animation */
+@keyframes correctPop {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+.result-correct { animation: correctPop 0.4s ease-out; }
