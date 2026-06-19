@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0" />
+  <meta name="theme-color" content="#A8324A" />
+  <title>ESC Puzzle — Cardio Study</title>
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="icon" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='26' font-size='24'>🫀</text></svg>" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="heart">♥</span>
+      <span>ESC<span class="brand-sub">Puzzle</span></span>
+    </div>
+    <nav class="tabs" id="tabs">
+      <button data-view="library" class="tab active">Library</button>
+      <button data-view="study" class="tab">Study</button>
+      <button data-view="builder" class="tab">Builder</button>
+      <button data-view="about" class="tab">About</button>
+    </nav>
+  </header>
+
+  <main>
+    <!-- LIBRARY -->
+    <section id="view-library" class="view active">
+      <div class="view-head">
+        <h1>Your saved charts</h1>
+        <div class="head-actions">
+          <button id="export-all" class="btn ghost">Export all (JSON)</button>
+          <label class="btn ghost" for="import-file">Import…</label>
+          <input id="import-file" type="file" accept="application/json" hidden />
+        </div>
+      </div>
+      <div id="library-grid" class="lib-grid"></div>
+      <div id="library-empty" class="empty hidden">
+        <p>No saved charts yet.</p>
+        <p class="dim">Tap <b>Builder</b> to create one, or load the <b>ESC samples</b> below to get started.</p>
+        <button id="load-samples" class="btn primary">Load ESC sample charts</button>
+      </div>
+    </section>
+
+    <!-- STUDY -->
+    <section id="view-study" class="view">
+      <div id="study-head" class="study-head"></div>
+      <div class="study-toolbar">
+        <div class="mode-switch" id="mode-switch">
+          <button data-mode="order" class="mode-btn active">Algorithm</button>
+          <button data-mode="label" class="mode-btn">Label-drag</button>
+          <button data-mode="piece" class="mode-btn">Piece-puzzle</button>
+        </div>
+        <div class="toolbar-right">
+          <label class="toggle">
+            <input type="checkbox" id="show-solution" />
+            <span>Show solution</span>
+          </label>
+          <button id="reset-puzzle" class="btn ghost">Reset</button>
+        </div>
+      </div>
+      <div id="study-canvas" class="study-canvas"></div>
+      <div id="study-feedback" class="feedback"></div>
+    </section>
+
+    <!-- BUILDER -->
+    <section id="view-builder" class="view">
+      <div class="view-head">
+        <h1>Build a new chart</h1>
+        <p class="dim">Personal-use study tool. Match ESC visual style. Stored locally on this device.</p>
+      </div>
+      <div class="builder">
+        <div class="builder-form">
+          <label>Chart title
+            <input id="b-title" type="text" placeholder="e.g. AF 2024 — Stroke prevention" />
+          </label>
+          <label>Guideline / source
+            <input id="b-source" type="text" placeholder="e.g. 2024 ESC AF Guideline, Figure 2" />
+          </label>
+          <label>Mode
+            <select id="b-mode">
+              <option value="order">Algorithm (order the steps)</option>
+              <option value="label">Label-drag (drop labels on targets)</option>
+              <option value="piece">Piece-puzzle (reassemble blocks)</option>
+            </select>
+          </label>
+          <label>Style
+            <select id="b-style">
+              <option value="hf">HF guideline (blue/purple)</option>
+              <option value="arr">Arrhythmia (blue/orange)</option>
+              <option value="valve">Valvular (purple/teal)</option>
+            </select>
+          </label>
+          <label>Steps (one per line) — node text
+            <textarea id="b-steps" rows="8" placeholder="Patient with suspected HF&#10;NT-proBNP ≥ 125 pg/mL&#10;Echocardiography&#10;Heart failure confirmed"></textarea>
+          </label>
+          <label>Connections (from → to, one per line, optional)
+            <textarea id="b-edges" rows="4" placeholder="1 → 2&#10;2 → 3"></textarea>
+          </label>
+          <div class="builder-actions">
+            <button id="b-save" class="btn primary">Save chart</button>
+            <button id="b-cancel" class="btn ghost">Cancel</button>
+          </div>
+        </div>
+        <div class="builder-preview">
+          <h3>Preview</h3>
+          <div id="b-preview" class="study-canvas mini"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="view-about" class="view" hidden>
+      <div class="view-head"><h1>About</h1></div>
+      <p>Personal study tool for cardiologists. Visual style calibrated to ESC guideline figures so your brain maps them as one memory.</p>
+      <ul>
+        <li><b>Local only.</b> All data is in this device's localStorage. Nothing is sent anywhere.</li>
+        <li><b>Three modes.</b> Algorithm-order, label-drag, piece-puzzle.</li>
+        <li><b>Anchors.</b> Pin steps you know cold; rebuild the ones you don't.</li>
+        <li><b>Save &amp; reuse.</b> Every chart persists between sessions.</li>
+      </ul>
+      <p class="dim small">ESC guideline figures are © European Society of Cardiology. This app uses an ESC-style visual system built from scratch; the templates are your own.</p>
+    </section>
+  </main>
+
+  <div id="toast" class="toast" hidden></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
